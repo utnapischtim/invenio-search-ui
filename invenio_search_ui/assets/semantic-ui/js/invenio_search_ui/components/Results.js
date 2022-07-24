@@ -23,7 +23,7 @@ import { Grid } from "semantic-ui-react";
 import { SearchConfigurationContext } from "./context";
 import { i18next } from "@translations/invenio_search_ui/i18next";
 
-export const Results = ({ currentResultsState = {} }) => {
+export const Results = ({ endpoint, currentResultsState = {} }) => {
   const { total } = currentResultsState.data;
   const { sortOptions, layoutOptions, paginationOptions, buildUID } =
     useContext(SearchConfigurationContext);
@@ -37,6 +37,7 @@ export const Results = ({ currentResultsState = {} }) => {
           paginationOptions,
           currentResultsState,
           layoutOptions,
+          endpoint,
         }}
       >
         <Grid relaxed>
@@ -52,7 +53,10 @@ export const Results = ({ currentResultsState = {} }) => {
             </Grid.Column>
           </Grid.Row>
           <Grid.Row verticalAlign="middle" floated="right">
-            <Grid.Column className="computer tablet only" width={4}></Grid.Column>
+            <Grid.Column
+              className="computer tablet only"
+              width={4}
+            ></Grid.Column>
             <Grid.Column
               className="computer tablet only"
               width={8}
@@ -83,6 +87,7 @@ export const Results = ({ currentResultsState = {} }) => {
               <ResultsPerPage
                 values={paginationOptions.resultsPerPage}
                 label={(cmp) => <> {cmp} results per page</>}
+                endpoint={endpoint}
               />
             </Grid.Column>
             <Grid.Column
@@ -93,6 +98,7 @@ export const Results = ({ currentResultsState = {} }) => {
               <ResultsPerPage
                 values={paginationOptions.resultsPerPage}
                 label={(cmp) => <> {cmp} results per page</>}
+                endpoint={endpoint}
               />
             </Grid.Column>
           </Grid.Row>

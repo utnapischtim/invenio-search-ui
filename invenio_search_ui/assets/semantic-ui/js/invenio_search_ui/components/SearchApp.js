@@ -29,7 +29,6 @@ import { SearchBar } from "./SearchBar";
 import { SearchConfigurationContext } from "./context";
 import { i18next } from "@translations/invenio_search_ui/i18next";
 
-
 const OnResults = withState(Results);
 const ResultOptionsWithState = withState(ResultOptions);
 
@@ -46,17 +45,18 @@ export const SearchAppFacets = ({ aggs }) => {
   );
 };
 
-export const SearchAppResultsPane = ({ layoutOptions }) => {
+export const SearchAppResultsPane = ({ layoutOptions, endpoint }) => {
   const { buildUID } = useContext(SearchConfigurationContext);
   return (
     <Overridable
       id={buildUID("SearchApp.resultsPane")}
       layoutOptions={layoutOptions}
+      endpoint={endpoint}
     >
       <ResultsLoader>
         <EmptyResults />
         <Error />
-        <OnResults />
+        <OnResults endpoint={endpoint} />
       </ResultsLoader>
     </Overridable>
   );
@@ -160,6 +160,7 @@ export const SearchApp = ({ config, appName }) => {
                   >
                     <SearchAppResultsPane
                       layoutOptions={config.layoutOptions}
+                      endpoint={config.endpoint}
                     />
                   </Grid.Column>
                 </Grid.Row>
